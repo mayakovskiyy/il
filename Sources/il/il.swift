@@ -12,7 +12,7 @@ struct il: ParsableCommand {
     var name: String
     
     @Option(help: "multiple logs saving.")
-    var msaver: Int = 1
+    var savmult: Int = 1
     
     @Flag(help: "copy log's data?")
     var copy: Bool = false
@@ -27,13 +27,13 @@ struct il: ParsableCommand {
         guard let data = text.data(using: .utf8) else { return }
         
         do {
-            if msaver > 1 {
-                for i in 1...msaver {
+            if savmult > 1 {
+                for i in 1...savmult {
                     try data.write(to: fileURL)
                 }
-                print("Succsesfully saved \(msaver) logs into the docs dir.")
+                print("Succsesfully saved \(savmult) logs into the docs dir.")
                 print("Danketsu Studio©, 2026")
-            } else if msaver < 1 {
+            } else if savmult < 1 {
                 print("Errm... You're not able to save less than 1 log, sorry.")
             } else {
                 try data.write(to: fileURL)
