@@ -21,7 +21,7 @@ struct il: ParsableCommand {
     
     mutating func run() {
         let documentsDir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsDir.appendingPathComponent("\(name)-\(date).log")
+        var fileURL = documentsDir.appendingPathComponent("\(name)-\(date).log")
         let text = "\(date) : \(log_text)"
         
         guard let data = text.data(using: .utf8) else { return }
@@ -29,6 +29,7 @@ struct il: ParsableCommand {
         do {
             if savmult > 1 {
                 for i in 1...savmult {
+                    fileURL = documentsDir.appendingPathComponent("\(name)-\(date)-\(i).log")
                     try data.write(to: fileURL)
                 }
                 print("Succsesfully saved \(savmult) logs into the docs dir.")
